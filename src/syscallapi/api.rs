@@ -6,14 +6,15 @@ const SYSCALL_CALLE_CONVENTIONS_URL: &str = "https://api.syscall.sh/v1/conventio
 pub struct SyscallApiClient {}
 
 impl SyscallApiClient {
-    pub fn new() -> SyscallApiClient {
-        SyscallApiClient {}
-    }
 
-    pub fn get_arch_syscall(&self, arch_name: String, syscall_name: String) -> Option<(types::Syscall, types::Convention)> {
-        
-        let convention_url = format!("{}{}", SYSCALL_CALLE_CONVENTIONS_URL, arch_name);
-        let syscall_url = format!("{}{}", SYSCALL_API_URL, arch_name);
+	pub fn new() -> SyscallApiClient {
+		SyscallApiClient {}
+	}
+
+	pub fn get_arch_syscall(&self, arch_name: String, syscall_name: String) -> Option<(types::Syscall, types::Convention)> {
+		
+		let convention_url = format!("{}{}", SYSCALL_CALLE_CONVENTIONS_URL, arch_name);
+		let syscall_url = format!("{}{}", SYSCALL_API_URL, arch_name);
 		
 		// TODO: Review errors output
 		let convention = self.get(&convention_url).unwrap_or_else(|err| {
@@ -34,9 +35,6 @@ impl SyscallApiClient {
 			panic!("Error on parsing syscall data => {}", err);
 		});
 
-		
-		// Ok
-		
 		for syscall in syscalls.iter() {
 			if syscall.name == syscall_name {
 				return Some((syscall.clone(), convention));
@@ -45,12 +43,13 @@ impl SyscallApiClient {
 
 		None
 
-    }
+	}
 
 
-    fn get(&self, url :&str) -> Result<String, reqwest::Error> {
+	fn get(&self, url :&str) -> Result<String, reqwest::Error> {
 		reqwest::blocking::get(url)?.text()
-    }
+	}
+
 }
 
 
