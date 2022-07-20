@@ -1,20 +1,35 @@
+use clap::Parser;
 mod syscallapi;
 use syscallapi::api;
-use std::env;
 
+#[derive(Parser, Debug)]
+#[clap(version = "1.0")]
+#[clap(author, about, long_about = None)]
+struct Args {
+	/// Arch type to be searched
+	#[clap(short, long, value_parser)]
+	arch: String,
+
+	/// Syscall name to be searched
+	#[clap(short, long, value_parser)]
+	syscall: String
+}
 
 fn main() {
+	let args = Args::parse();
+
 	let client = api::SyscallApiClient::new();
-	let args: Vec<String> = env::args().collect();
 
-	let syscall_name = &args[1];
-	let arch = &args[2];
+	let syscall_name = args.syscall;
+	// let bits = 
 
-	match client.get_arch_syscall(arch.to_string(), syscall_name.to_string()) {
+	match client.get_arch_syscall(args.arch.to_string(),syscall_name.to_string()) {
 		Some((syscall, convention)) => {
-			println!("Syscall {}\n{}", syscall_name, syscall.args_to_string(convention));
+			println!("{}:\n{}", syscall_name, syscall.args_to_string(convention));
 		},
-		None => println!("Unable to find read for x64")
+		None => println!("Unable to find {} for {}", syscall_name, args.arch)
 	}
+
+
 
 }

@@ -3,13 +3,12 @@ use std::str::FromStr;
 use serde::{Deserialize, Serialize};
 use serde_json::Result;
 
-
-
 #[derive(Serialize, Deserialize)]
 pub struct Convention {
 	pub arch	:String,
 	nr			:String,
-	// ret     : String,
+	#[serde(rename="return")]
+	ret     	: String,
 	arg0		:String,
 	arg1		:String,
 	arg2		:String,
@@ -18,7 +17,6 @@ pub struct Convention {
 	arg5		:String
 }
 
-
 // Same attributes but with different values
 
 #[derive(Serialize, Deserialize, Clone)]
@@ -26,7 +24,8 @@ pub struct Syscall {
 	pub arch	:String,
 	pub name	:String,
 	pub nr		:u32,
-	// ret		:String,
+	#[serde(rename="return")]
+	ret			:String,
 	pub arg0	:String,
 	pub arg1	:String,
 	pub arg2	:String,
@@ -48,9 +47,13 @@ impl Syscall {
 	}
 
 	pub fn args_to_string(&self, convention: Convention) -> String {
+
 		// I don't like this :/
-		// TODO: Improve this
+		// TODO: refactore this code, maybe macro ? 
 		let mut output_fmt: String = String::from_str("").unwrap();
+
+		output_fmt.push_str(format!("Syscall Number = {}\n", self.nr).as_str());
+		output_fmt.push_str(format!("return = {}\n", convention.ret).as_str());
 		output_fmt.push_str(format!("{} = {}\n", convention.arg0, self.arg0).as_str());
 		output_fmt.push_str(format!("{} = {}\n", convention.arg1, self.arg1).as_str());
 		output_fmt.push_str(format!("{} = {}\n", convention.arg2, self.arg2).as_str());
