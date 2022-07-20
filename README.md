@@ -72,7 +72,7 @@ The archs supported are:
 The simpliest way to install is using `cargo`:
 
 ```
-$ git clone github.com/aandersonl/rsyscall.git
+$ git clone https://github.com/AandersonL/rsyscall.git
 $ cd rsyscall
 $ cargo install --path .
 ```
