@@ -5,7 +5,7 @@ A simple client to [syscall.sh](https://syscall.sh) written in Rust.
 
 ## Introduction
 
-[syscall.sh](https://syscall.sh) provied a good table with all Linux syscalls for: x86, x64, ARM and ARM64, it's very useful when you don't know all syscalls and their arguments.
+[syscall.sh](https://syscall.sh) provides a good table with all Linux syscalls for: x86, x64, ARM and ARM64, it's very useful when you don't know all syscalls and their arguments.
 
 And their also have an [API](https://api.syscall.sh) which give access to everything in their website! So it's very nice to have a CLI which is simple to use and help a lot when developing somehting that's uses low level syscalls.
 
