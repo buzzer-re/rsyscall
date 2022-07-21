@@ -5,40 +5,39 @@ use serde_json::Result;
 
 #[derive(Serialize, Deserialize)]
 pub struct Convention {
-	pub arch	:String,
-	nr			:String,
-	#[serde(rename="return")]
-	ret     	: String,
-	arg0		:String,
-	arg1		:String,
-	arg2		:String,
-	arg3		:String,
-	arg4		:String,
-	arg5		:String
+    pub arch: String,
+    nr: String,
+    #[serde(rename = "return")]
+    ret: String,
+    arg0: String,
+    arg1: String,
+    arg2: String,
+    arg3: String,
+    arg4: String,
+    arg5: String,
 }
 
 // Same attributes but with different values
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct Syscall {
-	pub arch	:String,
-	pub name	:String,
-	pub nr		:u32,
-	#[serde(rename="return")]
-	ret			:String,
-	pub arg0	:String,
-	pub arg1	:String,
-	pub arg2	:String,
-	pub arg3	:String,
-	pub arg4	:String,
-	pub arg5	:String
+    pub arch: String,
+    pub name: String,
+    pub nr: u32,
+    #[serde(rename = "return")]
+    ret: String,
+    pub arg0: String,
+    pub arg1: String,
+    pub arg2: String,
+    pub arg3: String,
+    pub arg4: String,
+    pub arg5: String,
 }
 
 impl Convention {
-
-	pub fn from_str(raw: &str) -> Result<Convention>  {
-		serde_json::from_str(raw)
-	}
+    pub fn from_str(raw: &str) -> Result<Convention> {
+        serde_json::from_str(raw)
+    }
 }
 
 impl Syscall {
