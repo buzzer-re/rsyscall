@@ -41,24 +41,25 @@ impl Convention {
 }
 
 impl Syscall {
-    pub fn from_str_array(raw: &str) -> Result<Vec<Syscall>> {
-        serde_json::from_str(raw)
-    }
+	pub fn from_str_array(raw: &str) -> Result<Vec<Syscall>> {
+		serde_json::from_str(raw)
+	}
 
-    pub fn args_to_string(&self, convention: Convention) -> String {
-        // I don't like this :/
-        // TODO: refactore this code, maybe macro ?
-        let mut output_fmt: String = String::from_str("").unwrap();
-
-        output_fmt.push_str(format!("Syscall Number = {}\n", self.nr).as_str());
-        output_fmt.push_str(format!("return = {}\n", convention.ret).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg0, self.arg0).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg1, self.arg1).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg2, self.arg2).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg3, self.arg3).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg4, self.arg4).as_str());
-        output_fmt.push_str(format!("{} = {}\n", convention.arg5, self.arg5).as_str());
-
-        output_fmt
-    }
+	pub fn args_to_string(&self, convention: Convention) -> String {
+        format!("Syscall Number = {}
+return = {}
+{} = {}
+{} = {}
+{} = {}
+{} = {}
+{} = {}
+{} = {}",
+        self.nr, convention.ret,
+        convention.arg0, self.arg0,
+        convention.arg1, self.arg1,
+        convention.arg2, self.arg2,
+        convention.arg3, self.arg3,
+        convention.arg4, self.arg4,
+        convention.arg5, self.arg5)
+	}
 }
