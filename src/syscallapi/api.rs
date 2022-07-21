@@ -1,4 +1,3 @@
-use std::process;
 use super::types;
 
 const SYSCALL_API_URL: &str = "https://api.syscall.sh/v1/syscalls/";
@@ -43,13 +42,10 @@ impl SyscallApiClient {
             panic!("Error on parsing syscall data => {}", err);
         });
 
-        for syscall in syscalls.iter() {
-            if syscall.name == syscall_name {
-                return Some((syscall.clone(), convention));
-            }
-        }
-
-        None
+        syscalls
+            .into_iter()
+            .find(|s| s.name == syscall_name)
+            .map(|s| (s, convention))
     }
 
     fn get(&self, url: &str) -> Result<String, reqwest::Error> {
